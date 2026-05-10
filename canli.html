@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Düzcespor | Canlı Scout Karargahı</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #ed1c24; --bg: #050505; --card: #0e0e0e; }
+        body { background: var(--bg); color: #fff; font-family: 'Poppins', sans-serif; margin: 0; overflow: hidden; }
+
+        .live-wrapper {
+            display: grid; grid-template-columns: 350px 1fr 350px;
+            height: 100vh; padding-top: 80px; box-sizing: border-box;
+            gap: 10px;
+        }
+
+        /* ORTA PANEL: GLOBAL RADAR */
+        .main-radar-zone {
+            position: relative; 
+            background: radial-gradient(circle at center, #111 0%, #050505 100%);
+            border-radius: 25px; overflow: hidden; margin: 10px;
+            border: 1px solid rgba(255,255,255,0.02);
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        .small-radar-corner {
+            position: absolute; top: 20px; right: 20px;
+            width: 70px; height: 70px; background: rgba(0,0,0,0.8);
+            border-radius: 50%; border: 2px solid #222;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5); z-index: 10;
+        }
+        .small-radar-icon { font-size: 2rem; color: var(--primary); animation: radarRotate 3s linear infinite; }
+        @keyframes radarRotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        
+        .global-title { font-family:'Bebas Neue'; font-size: 4rem; margin:0; text-align:center; z-index: 5; text-shadow: 0 0 30px rgba(0,0,0,1); }
+        .global-title span { color: var(--primary); }
+
+        /* SAĞ PANEL: TERMINAL VE INPUT */
+        .log-panel { background: #000; border-left: 1px solid #1a1a1a; display: flex; flex-direction: column; }
+        .log-header { padding: 20px; border-bottom: 1px solid #111; }
+        
+        .log-content { 
+            flex-grow: 1; font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; 
+            color: #ccc; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 10px;
+        }
+        
+        /* KOMUTA GİRİŞİ (YENİ EKLEDİĞİMİZ YER) */
+        .command-input-area {
+            background: #0a0a0a; padding: 15px; border-top: 2px solid #1a1a1a;
+            display: flex; gap: 10px; align-items: center;
+        }
+        .command-input-area input {
+            flex-grow: 1; background: #000; border: 1px solid #333; color: #00ff00;
+            padding: 12px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;
+            border-radius: 5px; outline: none;
+        }
+        .command-input-area input:focus { border-color: var(--primary); }
+        .send-cmd-btn { background: var(--primary); border: none; color: white; padding: 12px 15px; border-radius: 5px; cursor: pointer; transition: 0.3s; }
+        .send-cmd-btn:hover { background: #ff2e36; transform: scale(1.05); }
+
+        .log-line { animation: fadeIn 0.4s ease; border-bottom: 1px solid #111; padding-bottom: 5px; line-height: 1.4; }
+        .log-line.user-cmd { color: #00ff00; font-weight: bold; border-left: 3px solid var(--primary); padding-left: 10px; }
+        .log-line.system { color: var(--primary); font-weight: bold; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateX(10px); } }
+
+        .side-panel { background: var(--card); padding: 20px; overflow-y: auto; border-right: 1px solid #1a1a1a; }
+        .panel-title { font-family: 'Bebas Neue'; font-size: 1.5rem; color: var(--primary); }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">DÜZCE<span>SPOR</span></div>
+        <ul class="nav-links">
+            <li><a href="index.html">PANEL</a></li>
+            <li><a href="havuz.html">HAVUZ</a></li>
+            <li><a href="canli.html" class="active">CANLI TAKİP</a></li>
+        </ul>
+    </nav>
+
+    <div class="live-wrapper">
+        <aside class="side-panel">
+            <div class="panel-title"><i class="fas fa-satellite-dish"></i> AKTİF TARAMA</div>
+            <p style="font-size:0.7rem; color:#444; letter-spacing:1px;">SİSTEM DURUMU: %100 NOMINAL</p>
+            
+            <div style="background:#111; padding:12px; border-radius:8px; margin-bottom:10px; border-right: 3px solid var(--primary);">
+                <h5 style="margin:0; font-size:0.8rem;">MOMO SANGHA</h5>
+                <div style="height:4px; background:#222; margin-top:8px; border-radius:2px;"><div style="width:75%; height:100%; background:var(--primary);"></div></div>
+            </div>
+            <div style="background:#111; padding:12px; border-radius:8px; border-right: 3px solid var(--primary);">
+                <h5 style="margin:0; font-size:0.8rem;">VIKTOR ÖLICH</h5>
+                <div style="height:4px; background:#222; margin-top:8px; border-radius:2px;"><div style="width:40%; height:100%; background:var(--primary);"></div></div>
+            </div>
+        </aside>
+
+        <section class="main-radar-zone">
+            <div class="small-radar-corner"><i class="fas fa-crosshairs small-radar-icon"></i></div>
+            <div style="z-index: 5; text-align: center;">
+                <h1 class="global-title">KOMUTA <span>MERKEZİ</span></h1>
+                <p style="color:rgba(255,255,255,0.2); font-size:0.7rem; letter-spacing:5px;">GLOBAL DATA STREAM v1.4</p>
+            </div>
+        </section>
+
+        <aside class="log-panel">
+            <div class="log-header">
+                <div class="panel-title" style="font-size:1.1rem; margin:0;"><i class="fas fa-terminal"></i> CANLI TERMİNAL</div>
+            </div>
+            
+            <div class="log-content" id="logContent">
+                <div class="log-line system">[SİSTEM] Scout Ağı Bağlantısı Başarılı.</div>
+            </div>
+
+            <div class="command-input-area">
+                <input type="text" id="cmdInput" placeholder="Operasyonel not girin..." onkeypress="handleKeyPress(event)">
+                <button class="send-cmd-btn" onclick="sendManualLog()"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </aside>
+    </div>
+
+    <script>
+        const logContent = document.getElementById('logContent');
+        const cmdInput = document.getElementById('cmdInput');
+
+        const autoMsgs = [
+            "[VERİ] Momo Sangha: Hava topu hakimiyeti %85.",
+            "[GÜNCEL] Zoran Pavlovic: Maç içi ısı haritası merkeze odaklandı.",
+            "[SİSTEM] Viktor Ölich için yeni bir scout atandı.",
+            "[VERİ] Kevin Abanga: Dripling başarısı arttı.",
+            "[DİKKAT] Lars Sundqvist: Ofsayt taktiği verisi güncellendi."
+        ];
+
+        function addAutoLog() {
+            const time = new Date().toLocaleTimeString('tr-TR', { hour12: false });
+            const msg = autoMsgs[Math.floor(Math.random() * autoMsgs.length)];
+            const div = document.createElement('div');
+            div.className = 'log-line';
+            div.innerHTML = `<span style="color:#444;">[${time}]</span> ${msg}`;
+            logContent.prepend(div);
+            if(logContent.children.length > 20) logContent.removeChild(logContent.lastChild);
+        }
+
+        // Manuel log gönderme fonksiyonu
+        function sendManualLog() {
+            const val = cmdInput.value.trim();
+            if(!val) return;
+
+            const time = new Date().toLocaleTimeString('tr-TR', { hour12: false });
+            const div = document.createElement('div');
+            div.className = 'log-line user-cmd';
+            div.innerHTML = `<span style="color:#ed1c24;">[${time}] [MANUEL]:</span> ${val.toUpperCase()}`;
+            
+            logContent.prepend(div);
+            cmdInput.value = ""; // Kutuyu temizle
+        }
+
+        function handleKeyPress(e) {
+            if(e.key === 'Enter') sendManualLog();
+        }
+
+        setInterval(addAutoLog, 4000);
+    </script>
+</body>
+</html>

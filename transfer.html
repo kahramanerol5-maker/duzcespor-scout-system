@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Düzcespor | Low-Budget Scout List</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        .transfer-body { background: #080808; color: #eee; margin: 0; }
+        .transfer-container { padding: 140px 8% 50px; }
+        
+        .transfer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .scout-card {
+            background: #121212;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #222;
+            transition: 0.3s ease;
+        }
+
+        .scout-card:hover { border-color: #ed1c24; transform: translateY(-5px); }
+
+        /* Transfermarkt Tarzı Portre Alanı */
+        .tm-portrait {
+            height: 250px;
+            background: #1a1a1a;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 3px solid #ed1c24;
+        }
+
+        .tm-portrait img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+        }
+
+        .value-badge {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: #2ecc71;
+            color: #000;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.85rem;
+        }
+
+        .card-info { padding: 20px; }
+        .player-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .player-name { font-family: 'Bebas Neue'; font-size: 1.5rem; margin: 0; color: #fff; }
+        .nation-flag { width: 20px; border-radius: 2px; }
+
+        .details-list { list-style: none; padding: 0; margin-bottom: 15px; }
+        .details-list li { font-size: 0.8rem; color: #888; margin-bottom: 5px; display: flex; justify-content: space-between; }
+        .details-list b { color: #ccc; }
+
+        .scout-verdict {
+            background: rgba(237, 28, 36, 0.05);
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            color: #aaa;
+            border-left: 3px solid #ed1c24;
+        }
+    </style>
+</head>
+<body class="transfer-body">
+
+    <nav class="navbar">
+        <div class="logo">DÜZCE <span>SPOR</span></div>
+        <ul class="nav-links">
+            <li><a href="index.html">PANEL</a></li>
+            <li><a href="havuz.html">HAVUZ</a></li>
+            <li><a href="transfer.html" class="active">TRANSFER</a></li>
+            <li><a href="anket.html">ANKET</a></li>
+        </ul>
+    </nav>
+
+    <main class="transfer-container">
+        <div style="margin-bottom: 40px; border-bottom: 1px solid #222; padding-bottom: 20px;">
+            <h1 style="font-family: 'Bebas Neue'; font-size: 3rem;">LOW-BUDGET <span style="color: #ed1c24;">SCOUT LIST</span></h1>
+            <p style="color: #666;">Piyasa değeri 1 milyon Euro altı, "keşfedilmemiş" potansiyeller.</p>
+        </div>
+
+        <div class="transfer-grid">
+            
+            <div class="scout-card">
+                <div class="tm-portrait">
+                    <img src="resimler/490292-1635961223.webp" alt="Momo">
+                    <div class="value-badge">€ 450K</div>
+                </div>
+                <div class="card-info">
+                    <div class="player-header">
+                        <h2 class="player-name">MOMO SANGHA</h2>
+                        <img src="https://flagcdn.com/w40/sn.png" class="nation-flag">
+                    </div>
+                    <ul class="details-list">
+                        <li>Mevki: <b>Ön Libero</b></li>
+                        <li>Yaş: <b>19</b></li>
+                        <li>Kulüp: <b>Diambars FC</b></li>
+                    </ul>
+                    <div class="scout-verdict">
+                        <strong>Erol Kahraman:</strong> "Senegal akademisinden yeni çıktı. Fiziksel gücü inanılmaz, tam bir kesici."
+                    </div>
+                </div>
+            </div>
+
+            <div class="scout-card">
+                <div class="tm-portrait">
+                    <img src="resimler/0fc17b87-1785-43c7-9ee3-ff5d529ec9cb.jpg" alt="Viktor">
+                    <div class="value-badge">€ 275K</div>
+                </div>
+                <div class="card-info">
+                    <div class="player-header">
+                        <h2 class="player-name">VIKTOR ÖLICH</h2>
+                        <img src="https://flagcdn.com/w40/at.png" class="nation-flag">
+                    </div>
+                    <ul class="details-list">
+                        <li>Mevki: <b>Stoper</b></li>
+                        <li>Yaş: <b>20</b></li>
+                        <li>Kulüp: <b>FC Liefering</b></li>
+                    </ul>
+                    <div class="scout-verdict">
+                        <strong>Arda Bağ:</strong> "Avusturya alt liginde parlıyor. Top tekniği bir stoper için çok elit düzeyde."
+                    </div>
+                </div>
+            </div>
+
+            <div class="scout-card">
+                <div class="tm-portrait">
+                    <img src="resimler/d729139a-e0fd-4bc6-b73b-01e8e4184403.jpg" alt="Joao">
+                    <div class="value-badge">€ 600K</div>
+                </div>
+                <div class="card-info">
+                    <div class="player-header">
+                        <h2 class="player-name">JOAO PEDRINHO</h2>
+                        <img src="https://flagcdn.com/w40/br.png" class="nation-flag">
+                    </div>
+                    <ul class="details-list">
+                        <li>Mevki: <b>Sağ Kanat</b></li>
+                        <li>Yaş: <b>21</b></li>
+                        <li>Kulüp: <b>Ferroviária</b></li>
+                    </ul>
+                    <div class="scout-verdict">
+                        <strong>Berk Doğanyılmaz:</strong> "Brezilya Serie C'nin en hızlısı. Kontra atak futbolu için biçilmiş kaftan."
+                    </div>
+                </div>
+            </div>
+
+            <div class="scout-card">
+                <div class="tm-portrait">
+                    <img src="resimler/2d022369-ec04-4968-8b09-be2f4acbc917.jpg" alt="Lars">
+                    <div class="value-badge">€ 150K</div>
+                </div>
+                <div class="card-info">
+                    <div class="player-header">
+                        <h2 class="player-name">LARS SUNDQVIST</h2>
+                        <img src="https://flagcdn.com/w40/se.png" class="nation-flag">
+                    </div>
+                    <ul class="details-list">
+                        <li>Mevki: <b>Sol Bek</b></li>
+                        <li>Yaş: <b>18</b></li>
+                        <li>Kulüp: <b>Umeå FC</b></li>
+                    </ul>
+                    <div class="scout-verdict">
+                        <strong>Alperen Ünal:</strong> "İsveç'in kuzeyinden bir yetenek. Boyu uzun olmasına rağmen çok atik."
+                    </div>
+                </div>
+            </div>
+
+            <div class="scout-card">
+                <div class="tm-portrait">
+                    <img src="resimler/63a184f7-9838-4b66-9218-bbde61f96afc.jpg" alt="Kevin">
+                    <div class="value-badge">€ 325K</div>
+                </div>
+                <div class="card-info">
+                    <div class="player-header">
+                        <h2 class="player-name">KEVIN ABANGA</h2>
+                        <img src="https://flagcdn.com/w40/gh.png" class="nation-flag">
+                    </div>
+                    <ul class="details-list">
+                        <li>Mevki: <b>On Numara</b></li>
+                        <li>Yaş: <b>22</b></li>
+                        <li>Kulüp: <b>Hearts of Oak</b></li>
+                    </ul>
+                    <div class="scout-verdict">
+                        <strong>Akın Kökçü:</strong> "Gana liginin gizli lideri. Dar alanda top saklama becerisi muazzam."
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+</body>
+</html>

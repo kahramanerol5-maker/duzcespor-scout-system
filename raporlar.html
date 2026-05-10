@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Düzcespor | Gözlem Raporları</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+    <div class="logo">
+        <img src="resimler/20151011164900!Duzcespor-asil-duzcesporlogo-kirmizi-lacivert-resmi-logo-arma.png" alt="Düzcespor Logo" class="logo-img">
+        DÜZCE<span>SPOR</span>
+    </div>
+    </div>
+    <ul class="nav-links">
+        <li><a href="index.html" class="active">KONTROL PANELİ</a></li>
+        <li><a href="oneri.html">VERİ GİRİŞİ</a></li>
+        <li><a href="analiz.html">SCOUT LAB</a></li>
+        <li><a href="iletişim.html">İLETİŞİM</a></li>
+    </ul>
+    <a href="ayarlar.html" class="nav-btn">SİSTEM AYARLARI</a>
+    <a href="analiz.html" class="nav-btn">ANALİZ LABORATUVARI</a>
+</nav>
+
+    <main style="padding: 50px 8%;">
+        <h2 style="color: #ed1c24; margin-bottom: 30px;">Son Gözlem Raporları</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+            <div style="background: #1a1a1a; padding: 20px; border-left: 5px solid #ed1c24; border-radius: 5px;">
+                <h3>U-19 Gelişim Ligi Analizi</h3>
+                <p style="font-size: 14px; color: #ccc; margin-top: 10px;">Tarih: 05.05.2026 - Scout: Erol Kahraman</p>
+                <p style="margin-top: 15px;">Orta saha bölgesinde teknik kapasitesi yüksek 2 oyuncu tespit edildi...</p>
+            </div>
+            <div style="background: #1a1a1a; padding: 20px; border-left: 5px solid #ed1c24; border-radius: 5px;">
+                <h3>Bölgesel Amatör Lig Taraması</h3>
+                <p style="font-size: 14px; color: #ccc; margin-top: 10px;">Tarih: 02.05.2026 - Scout: Sistem Analizi</p>
+                <p style="margin-top: 15px;">Fiziksel gücü yüksek savunma oyuncuları üzerine detaylı çalışma yapıldı.</p>
+            </div>
+        </div>
+    </main>
+    <section class="raporlar-page">
+    <div class="page-header">
+        <h1>TEKNİK <span class="highlight">ANALİZ</span> RAPORLARI</h1>
+        <p>Scout ekibimiz tarafından hazırlanan detaylı oyuncu ve maç performans verileri.</p>
+    </div>
+
+    <div class="stats-overview">
+        <div class="mini-stat">
+            <h4>124</h4>
+            <p>Toplam Rapor</p>
+        </div>
+        <div class="mini-stat">
+            <h4>18</h4>
+            <p>Bu Ay Eklenen</p>
+        </div>
+        <div class="mini-stat">
+            <h4>5</h4>
+            <p>Kritik İzleme</p>
+        </div>
+    </div>
+
+    <div class="reports-grid">
+      <div class="report-item">
+    <div class="report-img" style="background-image: url('resimler/Gemini_Generated_Image_aty1vlaty1vlaty1.png');"></div>
+    <div class="report-body">
+        <span class="report-tag purple">GİZLİ CEVHER (UNDER-THE-RADAR)</span>
+        <h3>Oscar Fraulo - Orta Saha Analizi</h3>
+        <p>FC Midtjylland forması giyen 19 yaşındaki Danimarkalı yeteneğin pas arası istatistikleri ve oyun kurma becerisi.</p>
+        <div class="report-footer">
+            <span class="score">POTANSİYEL: 8.9</span>
+            <a href="#" class="download-btn"><i class="fas fa-file-pdf"></i> PDF İNDİR</a>
+        </div>
+    </div>
+</div>
+        </div>
+
+        <div class="report-item">
+            <div class="report-img" style="background-image: url('https://images.unsplash.com/photo-1522778119026-d647f0596c20?q=80&w=500');"></div>
+            <div class="report-body">
+                <span class="report-tag yellow">RAKİP ANALİZİ</span>
+                <h3>Isparta 32 SK Taktik Diziliş</h3>
+                <p>Gelecek maç rakibimizin son 5 maçtaki duran top organizasyonları.</p>
+                <div class="report-footer">
+                    <span class="score">SKOR: 7.2</span>
+                    <a href="#" class="download-btn"><i class="fas fa-file-pdf"></i> PDF</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="report-item">
+            <div class="report-img" style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=500');"></div>
+            <div class="report-body">
+                <span class="report-tag green">MALİ RAPOR</span>
+                <h3>2026 Yaz Transfer Bütçesi</h3>
+                <p>Kulüp finansal sürdürülebilirlik ve maaş skalası projeksiyonu.</p>
+                <div class="report-footer">
+                    <span class="score">TAMAMLANDI</span>
+                    <a href="#" class="download-btn"><i class="fas fa-file-pdf"></i> PDF</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    if (localStorage.getItem('tema') === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+    }
+</script>
+</body>
+</html>

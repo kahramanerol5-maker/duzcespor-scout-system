@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Düzcespor | Global Oyuncu Havuzu</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* GENEL AYARLAR */
+        :root { --primary: #ed1c24; --bg: #050505; --card: #111; }
+        body { background: var(--bg); color: #fff; font-family: 'Poppins', sans-serif; margin: 0; overflow-x: hidden; }
+
+        /* BİLDİRİM TOAST (Kayıt Başarılı) */
+        .toast {
+            position: fixed; top: 30px; right: -450px;
+            background: #27ae60; color: white; padding: 18px 30px;
+            border-radius: 12px; display: flex; align-items: center;
+            gap: 15px; box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+            transition: 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55); z-index: 10000;
+            border-left: 6px solid #1e8449;
+        }
+        .toast.show { right: 30px; }
+
+        /* MODAL (image_8.png Birebir Tasarım) */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.92); backdrop-filter: blur(12px);
+            display: none; justify-content: center; align-items: center; z-index: 9000;
+        }
+        .modal-overlay.open { display: flex; }
+        
+        .form-modal {
+            background: #0a0a0a; border-radius: 35px; width: 95%; max-width: 680px;
+            padding: 55px; border: 1px solid rgba(255,255,255,0.06); position: relative;
+            text-align: center; box-shadow: 0 30px 70px rgba(0,0,0,1);
+            animation: modalFade 0.4s ease-out;
+        }
+        @keyframes modalFade { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+
+        .modal-close { position: absolute; top: 30px; right: 30px; background: none; border: none; color: #444; cursor: pointer; font-size: 1.8rem; transition: 0.3s; }
+        .modal-close:hover { color: var(--primary); }
+
+        .scouting-badge {
+            background: var(--primary); color: white; padding: 6px 22px; border-radius: 30px;
+            font-size: 0.7rem; font-weight: 800; letter-spacing: 1.5px; display: inline-block; margin-bottom: 20px;
+        }
+
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; text-align: left; margin-top: 35px; }
+        .form-group { display: flex; flex-direction: column; gap: 10px; }
+        .form-group label { color: var(--primary); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+        
+        input, select, textarea {
+            background: rgba(255,255,255,0.025); border: 1px solid #1a1a1a; color: #fff;
+            padding: 16px; border-radius: 12px; font-size: 0.9rem; outline: none; transition: 0.3s;
+        }
+        input:focus, select:focus, textarea:focus { border-color: var(--primary); background: rgba(255,255,255,0.05); }
+
+        .save-btn {
+            width: 100%; background: none; border: 1px solid #222; color: #666;
+            padding: 20px; border-radius: 12px; font-weight: 800; margin-top: 35px;
+            cursor: pointer; transition: 0.4s; text-transform: uppercase; letter-spacing: 3px; font-size: 0.9rem;
+        }
+        .save-btn:hover { background: var(--primary); color: #fff; border-color: var(--primary); transform: translateY(-3px); }
+
+        /* ANA SAYFA VE TABLO (image_7.png Birebir Tasarım) */
+        .pool-container { padding: 140px 8% 60px; }
+        
+        .header-title { font-family: 'Bebas Neue'; font-size: 5.5rem; text-align: center; margin-bottom: 55px; letter-spacing: 3px; }
+        .header-title span { color: var(--primary); }
+
+        .action-banner { 
+            background: #111; padding: 35px 45px; border-radius: 22px; 
+            margin-bottom: 45px; display: flex; justify-content: space-between; align-items: center;
+            border-left: 8px solid var(--primary); box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .action-text h3 { margin: 0; font-size: 1.3rem; font-weight: 600; }
+        .action-text p { margin: 10px 0 0; font-size: 0.95rem; color: #666; }
+
+        .suggest-trigger {
+            background: var(--primary); color: white; border: none; padding: 16px 32px;
+            border-radius: 12px; font-weight: 700; cursor: pointer; font-size: 0.85rem;
+            transition: 0.3s; display: flex; align-items: center; gap: 10px;
+        }
+        .suggest-trigger:hover { background: #ff2e36; transform: translateY(-2px); }
+
+        .table-wrapper { background: #111; border-radius: 25px; overflow: hidden; border: 1px solid rgba(255,255,255,0.03); }
+        .pool-table { width: 100%; border-collapse: collapse; }
+        .pool-table th { background: #181818; color: var(--primary); padding: 25px; text-align: left; font-family: 'Bebas Neue'; font-size: 1.2rem; letter-spacing: 1px; }
+        .pool-table td { padding: 22px; border-bottom: 1px solid #181818; font-size: 0.95rem; transition: 0.3s; }
+        .pool-table tr:hover td { background: rgba(255,255,255,0.01); }
+
+        .status-pill { font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; }
+    </style>
+</head>
+<body>
+
+    <div id="toast" class="toast">
+        <i class="fas fa-check-double fa-2x"></i>
+        <div>
+            <strong style="display:block; font-size: 1.1rem;">İŞLEM BAŞARILI</strong>
+            <small>Cevabınız sisteme başarıyla kaydedildi!</small>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="formModal">
+        <div class="form-modal">
+            <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+            <div class="scouting-badge">SCOUTING SİSTEMİ</div>
+            <h2 style="font-family:'Bebas Neue'; font-size:4rem; margin:0; line-height: 1;">YENİ OYUNCU <span style="color:var(--primary);">BİLDİR</span></h2>
+            <p style="color:#555; font-size:0.95rem; margin-top: 15px;">Sisteme yeni bir yetenek eklemek için aşağıdaki formu eksiksiz doldurun.</p>
+            
+            <form id="scoutForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Oyuncu Adı Soyadı</label>
+                        <input type="text" id="pName" placeholder="Örn: Momo Sangha" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Mevcut Kulübü</label>
+                        <input type="text" id="pTeam" placeholder="Örn: Diambars FC" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Mevki</label>
+                        <select id="pPos">
+                            <option value="">Seçiniz...</option>
+                            <option>Kaleci</option><option>Stoper</option><option>Sol Bek</option><option>Sağ Bek</option>
+                            <option>Ön Libero</option><option>Orta Saha</option><option>On Numara</option>
+                            <option>Kanat</option><option>Forvet</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Tahmini Piyasa Değeri</label>
+                        <input type="text" id="pValue" placeholder="Örn: 450.000 €" required>
+                    </div>
+                </div>
+                <div class="form-group" style="margin-top:25px; text-align:left;">
+                    <label>Scout Gözlem Notları</label>
+                    <textarea id="pNotes" rows="4" placeholder="Oyuncunun teknik ve fiziksel özellikleri hakkında detaylı bilgi veriniz..."></textarea>
+                </div>
+                <button type="submit" class="save-btn">SİSTEME KAYDET</button>
+            </form>
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <div class="logo">DÜZCE<span>SPOR</span></div>
+        <ul class="nav-links">
+            <li><a href="index.html">KONTROL PANELİ</a></li>
+            <li><a href="havuz.html" class="active">OYUNCU HAVUZU</a></li>
+            <li><a href="transfer.html">TRANSFER LİSTESİ</a></li>
+            <li><a href="iletisim.html">İLETİŞİM</a></li>
+        </ul>
+    </nav>
+
+    <main class="pool-container">
+        <h1 class="header-title">GLOBAL <span>OYUNCU</span> HAVUZU</h1>
+        
+        <div class="action-banner">
+            <div class="action-text">
+                <h3>Sistemde Olmayan Birini mi Buldun?</h3>
+                <p>Hemen havuza ekleyerek scout ağını genişlet!</p>
+            </div>
+            <button class="suggest-trigger" onclick="openModal()">
+                <i class="fas fa-plus-circle"></i> YENİ OYUNCU ÖNER
+            </button>
+        </div>
+
+        <div class="table-wrapper">
+            <table class="pool-table">
+                <thead>
+                    <tr>
+                        <th>OYUNCU</th>
+                        <th>MEVKİ</th>
+                        <th>TAKIM</th>
+                        <th>DURUM</th>
+                    </tr>
+                </thead>
+                <tbody id="poolBody">
+                    <tr><td>Ibrahim Hafeth</td><td>Sol Kanat</td><td>Al-Shorta SC</td><td><span class="status-pill" style="color:#2ecc71;">İZLENİYOR</span></td></tr>
+                    <tr><td>Bakary Haidara</td><td>Sağ Bek</td><td>Djoliba AC</td><td><span class="status-pill" style="color:#f1c40f;">GÖRÜŞÜLÜYOR</span></td></tr>
+                    <tr><td>Zoran Pavlovic</td><td>On Numara</td><td>FK IMT Belgrade</td><td><span class="status-pill" style="color:#888;">İNCELEMEDE</span></td></tr>
+                    <tr><td>Mateo Retegui (Alt)</td><td>Santrafor</td><td>Club Almirante</td><td><span class="status-pill" style="color:var(--primary);">KRİTİK</span></td></tr>
+                    <tr><td>Siddharth Singh</td><td>Kaleci</td><td>Kerala Blasters</td><td><span class="status-pill" style="color:#2ecc71;">İZLENİYOR</span></td></tr>
+                    <tr><td>Momo Sangha</td><td>Ön Libero</td><td>Diambars FC</td><td><span class="status-pill" style="color:#2ecc71;">İZLENİYOR</span></td></tr>
+                    <tr><td>Viktor Ölich</td><td>Stoper</td><td>FC Liefering</td><td><span class="status-pill" style="color:#f1c40f;">GÖRÜŞÜLÜYOR</span></td></tr>
+                    <tr><td>Joao Pedrinho</td><td>Sağ Kanat</td><td>Ferroviária</td><td><span class="status-pill" style="color:#2ecc71;">İZLENİYOR</span></td></tr>
+                    <tr><td>Lars Sundqvist</td><td>Sol Bek</td><td>Umeå FC</td><td><span class="status-pill" style="color:#888;">İNCELEMEDE</span></td></tr>
+                    <tr><td>Kevin Abanga</td><td>On Numara</td><td>Hearts of Oak</td><td><span class="status-pill" style="color:var(--primary);">KRİTİK</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script>
+        function openModal() { document.getElementById('formModal').classList.add('open'); }
+        function closeModal() { document.getElementById('formModal').classList.remove('open'); }
+
+        document.getElementById('scoutForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('pName').value;
+            const pos = document.getElementById('pPos').value;
+            const team = document.getElementById('pTeam').value;
+
+            // Tabloya en üste ekleme
+            const newRow = `<tr>
+                <td style="font-weight:600;">${name}</td>
+                <td>${pos}</td>
+                <td>${team}</td>
+                <td><span class="status-pill" style="color:#aaa;">YENİ KAYIT</span></td>
+            </tr>`;
+            document.getElementById('poolBody').insertAdjacentHTML('afterbegin', newRow);
+
+            // Kapat ve Bildirimi Göster
+            closeModal();
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+            this.reset();
+            
+            setTimeout(() => { toast.classList.remove('show'); }, 4000);
+        });
+
+        // Diğer sayfalardan gelen aydınlık mod kontrolü
+        if (localStorage.getItem('tema') === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+        }
+    </script>
+</body>
+</html>

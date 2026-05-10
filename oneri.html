@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Düzcespor | Oyuncu Öneri</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+     <nav class="navbar">
+        <div class="logo">
+            <img src="resimler/20151011164900!Duzcespor-asil-duzcesporlogo-kirmizi-lacivert-resmi-logo-arma.png" alt="Logo" class="logo-img">
+            DÜZCE<span>SPOR</span>
+       </div>
+    <ul class="nav-links">
+        <li><a href="index.html" class="active">KONTROL PANELİ</a></li>
+        <li><a href="oneri.html">VERİ GİRİŞİ</a></li>
+        <li><a href="analiz.html">SCOUT LAB</a></li>
+        <li><a href="iletişim.html">İLETİŞİM</a></li>
+    </ul>
+    <a href="ayarlar.html" class="nav-btn">SİSTEM AYARLARI</a>
+    </nav>
+
+    <section class="oneri-container">
+        <div class="oneri-box">
+            <span class="badge">SCOUTING SİSTEMİ</span>
+            <h1>YENİ OYUNCU <span class="highlight">BİLDİR</span></h1>
+            <p>Sisteme yeni bir yetenek eklemek için aşağıdaki formu eksiksiz doldurun.</p>
+
+            <form id="scoutForm" class="modern-form">
+                <div class="form-row">
+                    <div class="input-group">
+                        <label>Oyuncu Adı Soyadı</label>
+                        <input type="text" placeholder="Örn: Arda Güler" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Mevcut Kulübü</label>
+                        <input type="text" placeholder="Örn: Real Madrid">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="input-group">
+                        <label>Mevki</label>
+                        <select>
+                            <option>Seçiniz...</option>
+                            <option>Kaleci</option>
+                            <option>Defans</option>
+                            <option>Orta Saha</option>
+                            <option>Forvet</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Tahmini Piyasa Değeri</label>
+                        <input type="text" placeholder="Örn: 15.000.000 €">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Scout Gözlem Notları</label>
+                    <textarea rows="5" placeholder="Oyuncunun teknik ve fiziksel özellikleri hakkında detaylı bilgi veriniz..."></textarea>
+                </div>
+
+                <button type="submit" class="nav-btn" style="width: 100%; height: 50px; margin-top: 20px;">SİSTEME KAYDET</button>
+            </form>
+        </div>
+        
+    </section>
+    <script>
+    if (localStorage.getItem('tema') === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+    }
+</script>
+</body>
+</html>

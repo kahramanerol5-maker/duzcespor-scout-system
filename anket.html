@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Düzcespor | Haftanın Yeteneği & Scout Analizi</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #ed1c24; --bg: #050505; --card: #111; }
+        body { background: var(--bg); color: #fff; font-family: 'Poppins', sans-serif; margin: 0; }
+
+        .container { padding: 140px 8% 60px; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr; gap: 40px; }
+        
+        .header-section { grid-column: 1 / -1; text-align: center; margin-bottom: 40px; }
+        .header-section h1 { font-family: 'Bebas Neue'; font-size: 4rem; margin: 0; }
+        .header-section span { color: var(--primary); }
+
+        /* OYLAMA ALANI */
+        .poll-list { display: flex; flex-direction: column; gap: 15px; }
+        .poll-item {
+            background: var(--card); padding: 20px; border-radius: 15px;
+            display: flex; justify-content: space-between; align-items: center;
+            border: 1px solid rgba(255,255,255,0.03); cursor: pointer; transition: 0.3s;
+        }
+        .poll-item:hover { border-color: var(--primary); transform: translateX(10px); }
+        .poll-item.selected { background: var(--primary); border-color: var(--primary); }
+        
+        .player-meta h3 { margin: 0; font-size: 1.1rem; }
+        .player-meta span { font-size: 0.75rem; color: #666; font-weight: bold; }
+        .poll-item.selected span { color: #eee; }
+
+        /* YORUMCULAR ALANI (Scout Thoughts) */
+        .comments-section { background: var(--card); border-radius: 20px; padding: 30px; border: 1px solid rgba(255,255,255,0.05); height: fit-content; }
+        .comments-section h2 { font-family: 'Bebas Neue'; font-size: 1.8rem; border-bottom: 2px solid var(--primary); display: inline-block; margin-bottom: 25px; }
+        
+        .comment-card { margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #222; }
+        .comment-card:last-child { border: none; }
+        .scout-name { color: var(--primary); font-weight: bold; font-size: 0.85rem; text-transform: uppercase; display: block; margin-bottom: 5px; }
+        .comment-text { font-size: 0.8rem; color: #aaa; font-style: italic; line-height: 1.5; }
+
+        .submit-btn {
+            width: 100%; background: var(--primary); color: white; border: none;
+            padding: 18px; border-radius: 12px; font-weight: bold; margin-top: 25px;
+            cursor: pointer; text-transform: uppercase; letter-spacing: 2px;
+        }
+
+        /* TOAST */
+        .toast {
+            position: fixed; top: 30px; right: -400px;
+            background: #27ae60; color: white; padding: 15px 30px;
+            border-radius: 10px; transition: 0.5s ease-in-out; z-index: 10000;
+        }
+        .toast.show { right: 30px; }
+    </style>
+</head>
+<body>
+
+    <div id="toast" class="toast"><i class="fas fa-check-circle"></i> Analiz Başarıyla Kaydedildi!</div>
+
+    <nav class="navbar">
+        <div class="logo">DÜZCE<span>SPOR</span></div>
+        <ul class="nav-links">
+            <li><a href="index.html">PANEL</a></li>
+            <li><a href="havuz.html">HAVUZ</a></li>
+            <li><a href="transfer.html">TRANSFER</a></li>
+            <li><a href="anket.html" class="active">ANKET</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <div class="header-section">
+            <h1>HAFTALIK <span>SCOUT</span> ANALİZİ</h1>
+            <p style="color:#555;">Potansiyelli yetenekleri değerlendir ve ekibin yorumlarını incele.</p>
+        </div>
+
+        <div class="poll-list">
+            <div class="poll-item" onclick="select(this)">
+                <div class="player-meta"><h3>Ibrahim Hafeth</h3><span>Sol Kanat / Al-Shorta SC</span></div>
+                <div style="font-weight:bold;">%34</div>
+            </div>
+            <div class="poll-item" onclick="select(this)">
+                <div class="player-meta"><h3>Bakary Haidara</h3><span>Sağ Bek / Djoliba AC</span></div>
+                <div style="font-weight:bold;">%21</div>
+            </div>
+            <div class="poll-item" onclick="select(this)">
+                <div class="player-meta"><h3>Zoran Pavlovic</h3><span>On Numara / IMT Belgrade</span></div>
+                <div style="font-weight:bold;">%18</div>
+            </div>
+            <div class="poll-item" onclick="select(this)">
+                <div class="player-meta"><h3>Momo Sangha</h3><span>Ön Libero / Diambars FC</span></div>
+                <div style="font-weight:bold;">%15</div>
+            </div>
+            <div class="poll-item" onclick="select(this)">
+                <div class="player-meta"><h3>Viktor Ölich</h3><span>Stoper / FC Liefering</span></div>
+                <div style="font-weight:bold;">%12</div>
+            </div>
+            <button class="submit-btn" onclick="send()">SEÇİMİ TAMAMLA</button>
+        </div>
+
+        <div class="comments-section">
+            <h2>SCOUT NOTLARI</h2>
+            
+            <div class="comment-card">
+                <span class="scout-name">Erol Kahraman</span>
+                <p class="comment-text">"Ibrahim Hafeth'in hızı bu lig için çok fazla. Kontra atak sisteminde kilit oyuncu olur."</p>
+            </div>
+
+            <div class="comment-card">
+                <span class="scout-name">Arda Bağ</span>
+                <p class="comment-text">"Momo Sangha'nın fiziksel verileri elit seviyede. Orta sahada tam bir süpürge görevi görür."</p>
+            </div>
+
+            <div class="comment-card">
+                <span class="scout-name">Berk Doğanyılmaz</span>
+                <p class="comment-text">"Zoran Pavlovic, Sırbistan'ın en yetenekli gençlerinden biri. Oyun zekası yaşının çok ilerisinde."</p>
+            </div>
+
+            <div class="comment-card">
+                <span class="scout-name">Alperen Ünal</span>
+                <p class="comment-text">"Viktor Ölich geriden oyun kurma konusunda tam aradığımız stoper profili. Maliyeti de çok uygun."</p>
+            </div>
+
+            <div class="comment-card">
+                <span class="scout-name">Akın Kökçü</span>
+                <p class="comment-text">"Bakary Haidara atletizmiyle sağ kanadı tek başına domine edebilir. Gelişime çok açık."</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function select(el) {
+            document.querySelectorAll('.poll-item').forEach(i => i.classList.remove('selected'));
+            el.classList.add('selected');
+        }
+        function send() {
+            if(!document.querySelector('.poll-item.selected')) return alert("Seçim yap!");
+            const t = document.getElementById('toast');
+            t.classList.add('show');
+            setTimeout(() => { t.classList.remove('show'); window.location.href='index.html'; }, 3000);
+        }
+        if (localStorage.getItem('tema') === 'light') document.documentElement.setAttribute('data-theme', 'light');
+    </script>
+</body>
+</html>

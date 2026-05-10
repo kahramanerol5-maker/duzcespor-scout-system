@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Düzcespor | Scout Lab</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root { --neon-red: #ed1c24; --lab-bg: #030303; --glass: rgba(20, 20, 20, 0.8); }
+        body { background: var(--lab-bg); color: #fff; margin: 0; overflow: hidden; font-family: 'JetBrains Mono', monospace; }
+
+        .lab-container {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            height: 100vh;
+            padding-top: 80px;
+        }
+
+        /* SOL PANEL: OYUNCU DNA SEÇİCİ */
+        .dna-selector {
+            background: rgba(10, 10, 10, 0.9);
+            border-right: 1px dashed #333;
+            padding: 30px;
+            overflow-y: auto;
+        }
+
+        .dna-card {
+            border: 1px solid #222;
+            padding: 15px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .dna-card:hover, .dna-card.active {
+            border-color: var(--neon-red);
+            background: rgba(237, 28, 36, 0.05);
+            box-shadow: -5px 0 0 var(--neon-red);
+        }
+
+        .dna-card h4 { margin: 0; font-family: 'Bebas Neue'; font-size: 1.5rem; letter-spacing: 1px; }
+        .dna-card span { font-size: 0.7rem; color: #666; }
+
+        /* SAĞ PANEL: ANALİZ ODASI */
+        .analysis-room {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at center, #111 0%, #030303 100%);
+        }
+
+        .biometric-frame {
+            width: 80%;
+            height: 70%;
+            border: 1px solid rgba(255,255,255,0.05);
+            position: relative;
+            display: flex;
+            padding: 40px;
+            gap: 50px;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+        }
+
+        /* OYUNCU RESMİ VE HOLOGRAM EFEKTİ */
+        .subject-image-zone {
+            width: 300px;
+            height: 100%;
+            border: 2px solid var(--neon-red);
+            position: relative;
+            overflow: hidden;
+        }
+        .subject-image-zone img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; filter: grayscale(1); }
+        .scanning-bar {
+            position: absolute; width: 100%; height: 4px; background: var(--neon-red);
+            box-shadow: 0 0 15px var(--neon-red); top: 0; animation: scanMove 3s infinite linear;
+        }
+
+        /* VERİ TABLOSU */
+        .data-stats { flex-grow: 1; display: flex; flex-direction: column; justify-content: center; }
+        .stat-line { margin-bottom: 25px; }
+        .stat-header { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.9rem; }
+        .stat-progress { width: 100%; height: 10px; background: #111; border: 1px solid #222; }
+        .stat-fill { height: 100%; background: var(--neon-red); width: 0%; transition: 1.5s cubic-bezier(0.075, 0.82, 0.165, 1); }
+
+        /* DECORATION */
+        .grid-overlay { position: absolute; width: 100%; height: 100%; background-image: linear-gradient(#111 1px, transparent 1px), linear-gradient(90deg, #111 1px, transparent 1px); background-size: 40px 40px; opacity: 0.2; pointer-events: none; }
+        
+        @keyframes scanMove { 0% { top: 0; } 100% { top: 100%; } }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">DÜZCE<span>SPOR</span></div>
+        <ul class="nav-links">
+            <li><a href="index.html">PANEL</a></li>
+            <li><a href="canli.html">CANLI TAKİP</a></li>
+            <li><a href="lab.html" class="active">SCOUT LAB</a></li>
+        </ul>
+    </nav>
+
+    <div class="lab-container">
+        <div class="grid-overlay"></div>
+        
+        <aside class="dna-selector">
+            <h2 style="font-family:'Bebas Neue'; color:var(--neon-red); margin-bottom:30px;">DENEY GRUBU</h2>
+            
+            <div class="dna-card active" onclick="analyze('Momo Sangha', 'img/momo.jpg', 88, 92, 65, 84)">
+                <h4>MOMO SANGHA</h4>
+                <span>DNA ID: #SEN-9921</span>
+            </div>
+            
+            <div class="dna-card" onclick="analyze('Viktor Ölich', 'img/viktor.jpg', 62, 85, 78, 91)">
+                <h4>VIKTOR ÖLICH</h4>
+                <span>DNA ID: #AUT-4412</span>
+            </div>
+
+            <div class="dna-card" onclick="analyze('Joao Pedrinho', 'img/joao.jpg', 91, 68, 80, 30)">
+                <h4>JOAO PEDRINHO</h4>
+                <span>DNA ID: #BRA-2209</span>
+            </div>
+
+            <div class="dna-card" onclick="analyze('Lars Sundqvist', 'img/lars.jpg', 75, 80, 85, 88)">
+                <h4>LARS SUNDQVIST</h4>
+                <span>DNA ID: #SWE-1105</span>
+            </div>
+        </aside>
+
+        <main class="analysis-room">
+            <div class="biometric-frame">
+                <div class="subject-image-zone">
+                    <img src="resimler/490292-1635961223.webp" id="subjectImg" alt="Oyuncu">
+                    <div class="scanning-bar"></div>
+                </div>
+
+                <div class="data-stats">
+                    <h1 id="subjectName" style="font-family:'Bebas Neue'; font-size:3.5rem; margin:0 0 30px 0;">MOMO SANGHA</h1>
+                    
+                    <div class="stat-line">
+                        <div class="stat-header"><span>HIZ (SPEED)</span> <span id="v1">88%</span></div>
+                        <div class="stat-progress"><div class="stat-fill" id="b1" style="width: 88%;"></div></div>
+                    </div>
+
+                    <div class="stat-line">
+                        <div class="stat-header"><span>GÜÇ (STRENGTH)</span> <span id="v2">92%</span></div>
+                        <div class="stat-progress"><div class="stat-fill" id="b2" style="width: 92%;"></div></div>
+                    </div>
+
+                    <div class="stat-line">
+                        <div class="stat-header"><span>TEKNİK (SKILL)</span> <span id="v3">65%</span></div>
+                        <div class="stat-progress"><div class="stat-fill" id="b3" style="width: 65%;"></div></div>
+                    </div>
+
+                    <div class="stat-line">
+                        <div class="stat-header"><span>ZEKA (I.Q)</span> <span id="v4">84%</span></div>
+                        <div class="stat-progress"><div class="stat-fill" id="b4" style="width: 84%;"></div></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function analyze(name, img, s1, s2, s3, s4) {
+            // Aktif kartı değiştir
+            document.querySelectorAll('.dna-card').forEach(c => c.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            // Verileri güncelle
+            document.getElementById('subjectName').innerText = name.toUpperCase();
+            document.getElementById('subjectImg').src = img;
+            
+            // Barları sıfırla ve yeniden doldur (animasyon için)
+            const stats = [s1, s2, s3, s4];
+            for(let i = 1; i <= 4; i++) {
+                document.getElementById('b' + i).style.width = '0%';
+                document.getElementById('v' + i).innerText = '0%';
+                
+                setTimeout(() => {
+                    document.getElementById('b' + i).style.width = stats[i-1] + '%';
+                    document.getElementById('v' + i).innerText = stats[i-1] + '%';
+                }, 100);
+            }
+        }
+    </script>
+</body>
+</html>
