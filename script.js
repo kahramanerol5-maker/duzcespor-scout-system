@@ -844,6 +844,28 @@ input, select, textarea { width: 100%; background: rgba(0,0,0,0.3); border: 1px 
 
 @media (max-width: 992px) {
     /* Tablet ve Telefonlar için genel padding'i azalt */
+    /* Navbar'ı mobilde alt alta veya daha düzgün hizala */
+    .navbar {
+        flex-direction: column !important; /* Logo üstte, linkler altta olsun */
+        height: auto !important;
+        padding: 10px 0 !important;
+    }
+
+    .nav-links {
+        width: 100% !important;
+        justify-content: center !important;
+        padding: 10px 0 !important;
+        gap: 15px !important; /* Linklerin arasını aç ki parmakla basılsın */
+    }
+
+    .nav-links a {
+        font-size: 0.8rem !important; /* Yazıları biraz küçült */
+    }
+
+    /* Sayfa içeriği navbar'ın altında kalmasın diye üst boşluğu artır */
+    .live-wrapper, .lab-container {
+        padding-top: 120px !important; 
+    }
     main, .pool-container, .transfer-container, .container {
         padding: 120px 5% 40px !important;
     }
