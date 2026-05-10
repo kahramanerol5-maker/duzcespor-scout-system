@@ -1041,3 +1041,61 @@ input, select, textarea { width: 100%; background: rgba(0,0,0,0.3); border: 1px 
         margin-top: 20px;
     }
 }
+/* --- MOBİL İÇİN EZİCİ NAVBAR VE LAYOUT AYARLARI --- */
+@media screen and (max-width: 992px) {
+    /* Navbar'ı komple dikey yapıya zorla */
+    .navbar {
+        display: flex !important;
+        flex-direction: column !important;
+        height: auto !important;
+        padding: 15px 0 !important;
+        position: fixed !important;
+        top: 0 !important;
+        width: 100% !important;
+        background: #000 !important;
+        z-index: 1000 !important;
+    }
+
+    /* Logo ortalansın */
+    .logo {
+        margin-bottom: 10px !important;
+        font-size: 1.5rem !important;
+        text-align: center !important;
+    }
+
+    /* Linkleri yan yana ama ortalı yap */
+    .nav-links {
+        display: flex !important;
+        flex-direction: row !important; /* Linkler yan yana kalsın ama sığsın */
+        justify-content: center !important;
+        width: 100% !important;
+        padding: 0 !important;
+        gap: 15px !important;
+    }
+
+    .nav-links li {
+        list-style: none !important;
+    }
+
+    .nav-links a {
+        font-size: 0.75rem !important;
+        letter-spacing: 1px !important;
+    }
+
+    /* Sayfa içeriği navbar'ın altında ezilmesin diye boşluğu artır */
+    .live-wrapper, .lab-container {
+        display: flex !important;
+        flex-direction: column !important;
+        padding-top: 130px !important; /* Navbar uzadığı için burası kritik */
+        height: auto !important;
+        overflow-y: visible !important;
+    }
+
+    /* Radar ve Yan Paneller Alt Alta */
+    .side-panel, .log-panel, .main-radar-zone, .analysis-room {
+        width: 100% !important;
+        min-height: 300px !important;
+        border: none !important;
+        border-bottom: 1px solid #222 !important;
+    }
+}
